@@ -33,6 +33,27 @@ function TOOLS.split(string,delim)
   return returner
 end
 
+function TOOLS.splitMultiple(string,delims)
+  -----------------------------------------------------
+  -- splits a string by multiple delims at once.
+
+  -- string : string                        string to split
+  -- delims : table (array) of strings      array of delims to use for splitting
+  --
+  -- return : table (array)                 returns a table with the split sections
+  -----------------------------------------------------
+  local parts = { string }
+  for _,d in pairs(delims) do
+    for pi=#parts,1,-1 do
+      local splitParts = TOOLS.split(parts[pi],d)
+      table.remove(parts,pi)
+      for i=1,#splitParts do
+        table.insert(parts,pi + (i-1),splitParts[i])
+      end
+  end end
+  return parts
+end
+
 function TOOLS.remove(string,characters)
   -----------------------------------------------------
   -- removes all instances of the character from the string

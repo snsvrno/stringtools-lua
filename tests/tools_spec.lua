@@ -6,7 +6,7 @@ describe("Stringtools",function()
   end)
 
   describe("checks splitting",function()
-    -- creates teh test stuff
+    -- creates the test stuff
     local items = {'asd','131fs','dfggff','45456ashjj7'}
     local delims = { ',','||','<===>' }
 
@@ -20,6 +20,23 @@ describe("Stringtools",function()
         end
       end)
   end end)
+
+  describe("checks mutliple splitting", function ()
+    -- creates the test objects
+    local items = { "aa|bb|cc","aa;bb}cc"}
+    local delims = { "|",";","}" }
+
+    it("checks mutliple splitting",function()
+      local splitA = S.splitMultiple(items[1],delims)
+      local splitB = S.splitMultiple(items[2],delims)
+
+      for i,_ in pairs(splitA) do assert.are.equal(splitA[i],splitB[i]) end
+      for i,_ in pairs(splitB) do assert.are.equal(splitA[i],splitB[i]) end
+      
+    end)
+
+
+  end)
 
   describe("checks removing characters",function()
     local tests = {
