@@ -1,5 +1,3 @@
--- dumby comment
-
 local TOOLS = { }
 
 function TOOLS.split(string,delim)

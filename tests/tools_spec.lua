@@ -1,4 +1,8 @@
+-- loading library
 S = require 'bin.stringtools' or nil
+
+-- testing the metatable import
+require('bin.stringtools'):addToMetatable()
 
 describe("Stringtools",function()
   it("Loads the correct library",function()
@@ -66,4 +70,11 @@ describe("Stringtools",function()
     end
   end)
 
+end)
+
+describe("Metatable Import",function()
+  it("Metatable importing works",function()
+    local string = "asd"
+    assert.are.equals(string:split("s")[1],"a")
+  end)
 end)
