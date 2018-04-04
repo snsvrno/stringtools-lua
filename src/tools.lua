@@ -74,10 +74,10 @@ function TOOLS.removeLeading(string,characters)
   -----------------------------------------------------
   -- removes all leading instances of the characters
 
-  -- string : string            string to split
-  -- characters : string        delim to use for splitting, can be any length
+  -- string : string              string to split
+  -- characters : string          delim to use for splitting, can be any length
   --
-  -- return : string            new string without the character
+  -- return : string              new string without the character
   -----------------------------------------------------
   local newString = ''
 
