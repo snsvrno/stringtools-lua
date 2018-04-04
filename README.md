@@ -18,7 +18,7 @@ require('path.to'stringtools'):addToMetatable()
 
 ## Helper Functions
 
-### .addToMetatable(self)
+### `.addToMetatable(self)`
 Function to import all the functions into the string metatable.
 
 ## String Functions
@@ -29,10 +29,12 @@ Function to import all the functions into the string metatable.
 
 ### .remove(string,characters)
 
-### .removeLeading(string,characters)
+### `.removeLeading(string,characters)`
 Removes all the leading instances of the character(s), will stop after it doesn't match anymore characters.
 
-**string** : *String* - the string to split
-**characters** : *String* - the characters to remove, can be any length and removed as a set.
+***Inputs***
+- **`string`** : *String* - the string to split
+- **`characters`** : *String* - the characters to remove, can be any length and removed as a set.
 
-**returns** : *String* - the resulting string with the character(s) removed.
+***Output***
+- **`returns`** : *String* - the resulting string with the character(s) removed.
