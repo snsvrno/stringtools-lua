@@ -8,13 +8,13 @@ function TOOLS.split(string,delim)
     ----------------------------------------------------
 
     if type(delim) == type({}) then
-        return TOOLS.splitMultiple(string,delim)
+        return TOOLS._splitMultiple(string,delim)
     else
-        return TOOLS.splitSingle(string,delim)
+        return TOOLS._splitSingle(string,delim)
     end
 end
 
-function TOOLS.splitSingle(string,delim)
+function TOOLS._splitSingle(string,delim)
     -----------------------------------------------------
     -- splits a string using the delim
 
@@ -53,7 +53,7 @@ function TOOLS.splitSingle(string,delim)
     return returner
 end
 
-function TOOLS.splitMultiple(string,delims)
+function TOOLS._splitMultiple(string,delims)
     -----------------------------------------------------
     -- splits a string by multiple delims at once.
 
@@ -118,6 +118,81 @@ function TOOLS.removeLeading(string,characters)
     end
     
     return string:sub(istart,#string)
+end
+
+function TOOLS.trim(string,character)
+
+    if type(character) == type({}) then
+        return TOOLS._trimMultiple(string,character)
+    else
+        return TOOLS._trimSingle(string,character)
+    end
+end
+
+function TOOLS._trimSingle(string,characters)
+    -- trims the characters from the front and rear of the string
+    local start = true
+    local istart = 1
+
+    local ending = true
+    local isend = #string
+    for i = 1,#string-(#characters-1),#characters do
+        if start then
+            if string:sub(i,i+(#characters-1)) ~= characters then
+                start = false
+                istart = i
+            end
+        end
+    end
+
+    for i=#string,1,#characters do
+        if ending then
+            if string:sub(i,i+(#characters-1)) ~= characters then
+                ending = false
+                isend = i
+            end
+        end
+    end
+    return string:sub(istart,isend)
+end
+
+function TOOLS._trimMultiple(string,characters)
+    -- trims the characters from the front and rear of the string
+    local start = true
+    local istart = 1
+
+    local ending = true
+    local isend = #string
+    for i = 1,#string-(#characters-1),#characters do
+        if start then
+
+            local char = string:sub(i,i+(#characters-1))
+            local matches = false; for _,v in pairs(characters) do
+                if string.byte(char) == string.byte(v) then matches = true end
+            end
+
+            if not matches then
+                start = false
+                istart = i - 1
+            end
+        end
+    end
+
+    for i=#string,1,#characters do
+        if ending then
+            
+            local char = string:sub(i,i+(#characters-1))
+            local matches = false; for _,v in pairs(characters) do
+                if string.byte(char) == string.byte(v) then matches = true end
+            end
+
+            if not matches then
+                ending = false
+                isend = i
+            end
+        end
+    end
+    return string:sub(istart,isend)
 end
 
 return TOOLS
