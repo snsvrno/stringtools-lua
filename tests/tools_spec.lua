@@ -1,13 +1,13 @@
 -- this test is assuming that this project and it's dependencies
 -- are located in the same root folder, like maybe a `libraries`
 -- folder or something, that way it can find the correct dependencies
-for i,v in pairs(arg) do 
+for _,v in pairs(arg) do
   if (v ~= '--console') and (v ~= 'embedded boot.lua') and (v:find('.exe') == nil ) then
     package.path = './../?/init.lua;./../?.lua;' .. package.path
 end end
 
 -- loading library
-S = require 'stringtools-lua' or nil
+local S = require 'stringtools-lua' or nil
 
 -- testing the metatable import
 require('stringtools-lua'):addToMetatable()
@@ -44,7 +44,7 @@ describe("Stringtools",function()
 
       for i,_ in pairs(splitA) do assert.are.equal(splitA[i],splitB[i]) end
       for i,_ in pairs(splitB) do assert.are.equal(splitA[i],splitB[i]) end
-      
+
     end)
 
 

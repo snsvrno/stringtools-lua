@@ -9,10 +9,11 @@ function TOOLS.split(string,delim)
   --
   -- return : table (array)     returns a table with the split sections
   -----------------------------------------------------
-  returner = { }
+  local returner = { }
 
-  shortString = ''
-  skip = 0
+  local shortString = ''
+  local skip = 0
+
   for i=1,(#string+1-#delim) do
     if skip > 0 then
       skip = skip - 1
@@ -79,17 +80,16 @@ function TOOLS.removeLeading(string,characters)
   --
   -- return : string              new string without the character
   -----------------------------------------------------
-  local newString = ''
 
   local start = true
   local istart = 1
 
   for i=1,#string-(#characters-1),#characters do
-    if start then 
-      if string:sub(i,i+(#characters-1)) ~= characters then 
-        start = false 
+    if start then
+      if string:sub(i,i+(#characters-1)) ~= characters then
+        start = false
         istart = i
-  end end end 
+  end end end
   return string:sub(istart,#string)
 end
 
