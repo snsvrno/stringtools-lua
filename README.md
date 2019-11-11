@@ -66,3 +66,10 @@ Removes all the leading instances of the character(s), will stop after it doesn'
 
 ***Output***
 - **`returns`** : *String* - the resulting string with the character(s) removed.
+
+## Development Tools
+
+- luacov
+- luacov-coveralls
+- luacheck
+- busted
