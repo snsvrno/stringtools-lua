@@ -166,40 +166,64 @@ end
 
 function TOOLS._trimMultiple(string,characters)
     -- trims the characters from the front and rear of the string
-    local start = true
     local istart = 1
 
     local ending = true
     local isend = #string
-    for i = 1,#string-(#characters-1),#characters do
-        if start then
 
-            local char = string:sub(i,i+(#characters-1))
-            local matches = false; for _,v in pairs(characters) do
-                if string.byte(char) == string.byte(v) then matches = true end
-            end
+    for i = 1, #string do
 
-            if not matches then
-                start = false
-                istart = i
+        -- did we find a match? this defaults to now, so
+        -- we need to confirm a match later
+        local matches = false;
+
+        for _, ch in pairs(characters) do
+            
+            if #ch <= (#string - i + 1) then
+                -- check to make sure we don't access parts of 
+                -- the string that don't exist
+
+                local chars = string:sub(i,i + #ch - 1)
+                if string.byte(chars) == string.byte(ch) then matches = true end
+
             end
+        end
+
+        if not matches then
+            istart = i
+
+            -- if we don't find another match then we are done
+            -- with the beginning of the string, we should just
+            -- quit because there is no point to keep going.
+            break
+        end
+
+    end
+    
+    for i = #string, 1, -1 do
+
+        -- did we find a match? this defaults to false, and 
+        -- we need to check for it later
+        local matches = false;
+
+        for _, ch in pairs(characters) do
+
+            if #ch <= (#string - i + 1) then
+                -- to check that we don't acces parts of
+                -- the string that don't exist
+
+                local chars = string:sub(i,i + #ch - 1)
+                if string.byte(chars) == string.byte(ch) then matches = true end
+            end
+        end
+
+        if not matches then
+            isend = i
+
+            break
         end
     end
 
-    for i=#string,1,(-1 * #characters) do
-        if ending then
-
-            local char = string:sub(i,i+(#characters-1))
-            local matches = false; for _,v in pairs(characters) do
-                if string.byte(char) == string.byte(v) then matches = true end
-            end
-
-            if not matches then
-                ending = false
-                isend = i
-            end
-        end
-    end
     return string:sub(istart,isend)
 end
 
