@@ -9,7 +9,7 @@ end
 
 -- loading library
 local stringtools = require 'stringtools-lua' or nil
-local splitSingle = stringtools.splitSingle
+local splitSingle = stringtools._splitSingle
 
 describe("checks splitting",function()
     -- creates the test stuff
@@ -19,12 +19,12 @@ describe("checks splitting",function()
     for _,d in pairs(delims) do
         local test = ''
         it("checks splitting // delim = '" .. d .. "'",function()
-            
-            for i,v in pairs(items) do 
+
+            for i,v in pairs(items) do
                 test = test .. v
-                if i ~= #items then 
-                    test = test .. d 
-                end 
+                if i ~= #items then
+                    test = test .. d
+                end
             end
 
             local splitString = splitSingle(test,d)

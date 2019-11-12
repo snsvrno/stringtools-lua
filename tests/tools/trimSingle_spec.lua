@@ -7,12 +7,16 @@ for _,v in pairs(arg) do
     end
 end
 
--- testing the metatable import
-require('stringtools-lua'):addToMetatable()
+-- loading library
+local stringtools = require 'stringtools-lua' or nil
+local trim = stringtools._trimSingle
 
-describe("Metatable Import",function()
-    it("Metatable importing works",function()
-        local string = "asd"
-        assert.are.equals(string:split("s")[1],"a")
+describe("_trimSingle()",function()
+    -- creates the test stuff
+
+    it("something in the way",function()
+        local trimmed = trim("  x   this     "," ")
+
+        assert.are.equal("x   this",trimmed)
     end)
 end)

@@ -3,7 +3,7 @@ local TOOLS = { }
 function TOOLS.split(string,delim)
     -----------------------------------------------------
     -- a combination of the splitSingle and splitMultiple
-    -- functions, can take either a string or a table as 
+    -- functions, can take either a string or a table as
     -- the delim
     ----------------------------------------------------
 
@@ -45,7 +45,7 @@ function TOOLS._splitSingle(string,delim)
             end
         end
     end
-    
+
     --    last add bits
     shortString = shortString .. string:sub(#string+2-#delim+skip,#string)
     returner[#returner+1] = shortString
@@ -63,16 +63,24 @@ function TOOLS._splitMultiple(string,delims)
     -- return : table (array)                                 returns a table with the split sections
     -----------------------------------------------------
     local parts = { string }
+
+    -- we are going to go through string, and start splitting him up,
+    -- removing pieces and replacing them with cut up pieces.
     for _,d in pairs(delims) do
-        for pi=#parts,1,-1 do
-            local splitParts = TOOLS.split(parts[pi],d)
-            table.remove(parts,pi)
-            for i=1,#splitParts do
-                table.insert(parts,pi + (i-1),splitParts[i])
+        for pi = #parts,1,-1 do
+            local removedPart = table.remove(parts,pi)
+            local splitParts = TOOLS.split(removedPart,d)
+
+            for i = #splitParts,1,-1 do
+                -- decided to go backwards, so we can insert the new piece at
+                -- the same spot everytime.
+                if #splitParts[i] > 0 then
+                    table.insert(parts,pi,splitParts[i])
+                end
             end
-        end 
+        end
     end
-    
+
     return parts
 end
 
@@ -89,7 +97,7 @@ function TOOLS.remove(string,characters)
     local splits = TOOLS.split(string,characters)
     local returner = ''
     for _,v in pairs(splits) do
-        returner = returner .. v 
+        returner = returner .. v
     end
 
     return returner
@@ -116,7 +124,7 @@ function TOOLS.removeLeading(string,characters)
             end
         end
     end
-    
+
     return string:sub(istart,#string)
 end
 
@@ -145,7 +153,7 @@ function TOOLS._trimSingle(string,characters)
         end
     end
 
-    for i=#string,1,#characters do
+    for i=#string,1,(-1 * #characters) do
         if ending then
             if string:sub(i,i+(#characters-1)) ~= characters then
                 ending = false
@@ -173,14 +181,14 @@ function TOOLS._trimMultiple(string,characters)
 
             if not matches then
                 start = false
-                istart = i - 1
+                istart = i
             end
         end
     end
 
-    for i=#string,1,#characters do
+    for i=#string,1,(-1 * #characters) do
         if ending then
-            
+
             local char = string:sub(i,i+(#characters-1))
             local matches = false; for _,v in pairs(characters) do
                 if string.byte(char) == string.byte(v) then matches = true end

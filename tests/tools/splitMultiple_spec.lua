@@ -9,7 +9,7 @@ end
 
 -- loading library
 local stringtools = require 'stringtools-lua' or nil
-local splitMultiple = stringtools.splitMultiple
+local splitMultiple = stringtools._splitMultiple
 
 describe("checks multiple splitting", function ()
     -- creates the test objects
