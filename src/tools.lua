@@ -167,8 +167,6 @@ end
 function TOOLS._trimMultiple(string,characters)
     -- trims the characters from the front and rear of the string
     local istart = 1
-
-    local ending = true
     local isend = #string
 
     for i = 1, #string do
@@ -178,9 +176,9 @@ function TOOLS._trimMultiple(string,characters)
         local matches = false;
 
         for _, ch in pairs(characters) do
-            
+
             if #ch <= (#string - i + 1) then
-                -- check to make sure we don't access parts of 
+                -- check to make sure we don't access parts of
                 -- the string that don't exist
 
                 local chars = string:sub(i,i + #ch - 1)
@@ -199,10 +197,10 @@ function TOOLS._trimMultiple(string,characters)
         end
 
     end
-    
+
     for i = #string, 1, -1 do
 
-        -- did we find a match? this defaults to false, and 
+        -- did we find a match? this defaults to false, and
         -- we need to check for it later
         local matches = false;
 
