@@ -1,5 +1,20 @@
 local TOOLS = { }
 
+function TOOLS.desplit(t,delim)
+    -----------------------------------------------------
+    -- opposite of split, will combine the table of strings
+    -- and put the delim between them
+    -----------------------------------------------------
+    
+    local newString = tostring(t[1])
+
+    for i=2,#t do
+        newString = newString .. delim .. tostring(t[i])
+    end
+
+    return newString
+end
+
 function TOOLS.split(string,delim)
     -----------------------------------------------------
     -- a combination of the splitSingle and splitMultiple
