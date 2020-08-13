@@ -8,9 +8,9 @@ local importer = function (parent)
 
   -- adds it to the metatable
   for i,v in pairs(parent) do
-    if type(v) == 'function' then
-      mt.__index[i] = v
-    end
+	if type(v) == 'function' then
+	  mt.__index[i] = v
+	end
   end
 
 end
